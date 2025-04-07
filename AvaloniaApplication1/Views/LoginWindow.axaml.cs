@@ -1,5 +1,6 @@
 ﻿
 using Avalonia.Controls;
+using Avalonia.Input;
 using AvaloniaApplication1.ViewModels;
 
 
@@ -15,7 +16,13 @@ public partial class LoginWindow : Window
         // 将视图模型与视图关联
         this.DataContext = new LoginWindowViewModel(this);
     }
-    
+    private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (e.Pointer.Type == PointerType.Mouse)
+        {
+            this.BeginMoveDrag(e);
+        }
+    }
     
 
   

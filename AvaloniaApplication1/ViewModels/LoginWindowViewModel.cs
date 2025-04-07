@@ -69,6 +69,9 @@ namespace AvaloniaApplication1.ViewModels
             }
             else
             {
+                // 登录失败，显示错误提示窗口
+                var errorWindow = new Views.ErrorWindow("Login failed: Invalid credentials");
+                errorWindow.ShowDialog(_loginWindow); // 传递父窗口
                 Console.WriteLine("Login failed!");
                 // 这里可以添加失败提示，比如弹窗
             }

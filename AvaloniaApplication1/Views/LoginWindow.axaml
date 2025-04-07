@@ -6,6 +6,11 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaApplication1.Views.LoginWindow"
         Title="Login"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        SystemDecorations="None"
+        PointerPressed="InputElement_OnPointerPressed"
         x:DataType="viewModels:LoginWindowViewModel"
         Width="400" Height="300">
         <StackPanel Margin="40" VerticalAlignment="Center">
