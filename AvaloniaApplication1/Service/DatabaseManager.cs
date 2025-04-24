@@ -1,9 +1,9 @@
-﻿using Microsoft.Data.Sqlite;
-using System;
+﻿using System;
 using System.IO;
+using Microsoft.Data.Sqlite;
 using Serilog;
 
-namespace AvaloniaApplication1.Services
+namespace AvaloniaApplication1.Service
 {
     public class DatabaseManager
     {

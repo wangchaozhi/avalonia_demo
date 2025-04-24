@@ -4,10 +4,10 @@ using System;
 using System.IO;
 using AvaloniaApplication1.Views;
 using CommunityToolkit.Mvvm.Input;
-using AvaloniaApplication1.Services;
 using Serilog;
 using System.Security.Cryptography;
 using System.Text;
+using AvaloniaApplication1.Service;
 
 namespace AvaloniaApplication1.ViewModels
 {
