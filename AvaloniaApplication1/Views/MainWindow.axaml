@@ -7,14 +7,16 @@
         x:Class="AvaloniaApplication1.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="AvaloniaApplication1">
-
+        Title="AvaloniaApplication1"
+        Width="350" Height="350"
+        CanResize="False"
+        WindowStartupLocation="CenterScreen">
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
+    <TextBlock Text="{Binding Greeting}" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Center"
+               FontSize="20"/>
 </Window>
