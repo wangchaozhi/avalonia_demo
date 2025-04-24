@@ -12,13 +12,18 @@
         SystemDecorations="None"
         PointerPressed="InputElement_OnPointerPressed"
         x:DataType="viewModels:LoginWindowViewModel"
-        Width="400" Height="350"
-        >
+        Width="400" Height="350">
     <Grid>
         <!-- Background image -->
         <Image Source="avares://AvaloniaApplication1/Assets/dragonlearn.webp"
                Stretch="Fill" 
                ZIndex="0"/>
+
+        <!-- Semi-transparent overlay for readability -->
+        <Border Background="#FFFFFF"
+                Opacity="0.2"
+                ZIndex="1"/>
+
         <!-- Close button in top-right corner -->
         <Button Content="X"
                 Width="30"
@@ -27,24 +32,32 @@
                 VerticalAlignment="Top"
                 Margin="0,5,5,0"
                 Background="Transparent"
-                Foreground="Black"
+                Foreground="Red"
                 FontWeight="Bold"
                 Click="CloseButton_Click"
-                Cursor="Hand"/>
+                Cursor="Hand"
+                ZIndex="2"/>
 
         <!-- Main login form -->
-        <StackPanel Margin="40" VerticalAlignment="Center">
+        <StackPanel Margin="40" 
+                    VerticalAlignment="Center"
+                    ZIndex="2">
             <TextBlock Text="Login" 
                        FontSize="24" 
                        Margin="0,0,0,20" 
-                       HorizontalAlignment="Center"/>
+                       HorizontalAlignment="Center"
+                       Foreground="#000000"/>
             
-            <TextBlock Text="用户名:" Margin="0,0,0,5"/>
+            <TextBlock Text="用户名:" 
+                       Margin="0,0,0,5"
+                       Foreground="#000000"/>
             <TextBox Text="{Binding Username}" 
                      Watermark="输入用户名" 
                      Margin="0,0,0,15"/>
 
-            <TextBlock Text="密码:" Margin="0,0,0,5"/>
+            <TextBlock Text="密码:" 
+                       Margin="0,0,0,5"
+                       Foreground="#000000"/>
             <TextBox PasswordChar="*" 
                      Text="{Binding Password}" 
                      Watermark="输入密码" 
@@ -52,13 +65,15 @@
 
             <CheckBox Content="记住密码" 
                       IsChecked="{Binding RememberPassword}" 
-                      Margin="0,0,0,20"/>
+                      Margin="0,0,0,20"
+                      Foreground="#000000"/>
 
             <Button Content="登录" 
                     Command="{Binding LoginCommand}" 
                     HorizontalAlignment="Center" 
                     Padding="20,5"
-                    Background="#4E6EF2">
+                    Background="#4E6EF2"
+                    Foreground="#FFFFFF">
                 <Button.Styles>
                     <Style Selector="Button:pointerover /template/ ContentPresenter">
                         <Setter Property="Background" Value="#5A7FFF"/>
