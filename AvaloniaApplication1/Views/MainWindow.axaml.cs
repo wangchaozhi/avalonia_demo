@@ -7,6 +7,8 @@ using Serilog;
 using System;
 using System.Runtime.InteropServices;
 using Avalonia.Controls.ApplicationLifetimes;
+using AvaloniaApplication1.ViewModels;
+using CommunityToolkit.Mvvm.Input;
 
 namespace AvaloniaApplication1.Views
 {
@@ -14,6 +16,7 @@ namespace AvaloniaApplication1.Views
     {
         private TrayIcon? _trayIcon;
         private NativeMenu _trayMenu = new NativeMenu();
+    
 
         public MainWindow()
         {

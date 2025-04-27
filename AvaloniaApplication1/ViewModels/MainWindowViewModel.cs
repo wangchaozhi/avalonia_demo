@@ -74,7 +74,7 @@ namespace AvaloniaApplication1.ViewModels
             // TODO: Implement about dialog
         }
 
-        private void AppendConsoleOutput(string message)
+        internal void AppendConsoleOutput(string message)
         {
             ConsoleOutput += $"[{DateTime.Now:HH:mm:ss}] {message}\n";
             Log.Information("Console: {Message}", message);

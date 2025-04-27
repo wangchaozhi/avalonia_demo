@@ -3,9 +3,15 @@
              xmlns:vm="using:AvaloniaApplication1.ViewModels"
              x:Class="AvaloniaApplication1.Views.ConsoleOutputControl"
              x:DataType="vm:MainWindowViewModel">
-    <TextBox Height="80"
-             IsReadOnly="True"
-             Text="{Binding ConsoleOutput, Mode=OneWay}"
-             Margin="5"
-             FontFamily="Consolas"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+        <TextBox x:Name="ConsoleTextBox"
+                 Height="80"
+                 IsReadOnly="True"
+                 Text="{Binding ConsoleOutput, Mode=OneWay}"
+                 AcceptsReturn="True"
+                 AcceptsTab="True"
+                 Margin="5"
+                 FontFamily="Consolas"/>
+    </ScrollViewer>
 </UserControl>
