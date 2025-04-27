@@ -1,0 +1,11 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaApplication1.ViewModels"
+             x:Class="AvaloniaApplication1.Views.ConsoleOutputControl"
+             x:DataType="vm:MainWindowViewModel">
+    <TextBox Height="80"
+             IsReadOnly="True"
+             Text="{Binding ConsoleOutput, Mode=OneWay}"
+             Margin="5"
+             FontFamily="Consolas"/>
+</UserControl>

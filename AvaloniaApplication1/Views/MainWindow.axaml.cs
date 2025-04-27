@@ -24,9 +24,6 @@ namespace AvaloniaApplication1.Views
 
         private void CenterWindow()
         {
-            this.Width = 350;
-            this.Height = 350;
-            this.CanResize = false; // Disable resizing
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen; // Center window
         }
 

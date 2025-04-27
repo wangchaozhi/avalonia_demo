@@ -1,0 +1,23 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaApplication1.ViewModels"
+             x:Class="AvaloniaApplication1.Views.MenuBarControl"
+             x:DataType="vm:MainWindowViewModel">
+    <Menu>
+        <MenuItem Header="_File">
+            <MenuItem Header="_New" Command="{Binding NewCommand}"/>
+            <MenuItem Header="_Open" Command="{Binding OpenCommand}"/>
+            <MenuItem Header="_Save" Command="{Binding SaveCommand}"/>
+            <Separator/>
+            <MenuItem Header="_Exit" Command="{Binding ExitCommand}"/>
+        </MenuItem>
+        <MenuItem Header="_Edit">
+            <MenuItem Header="_Cut" Command="{Binding CutCommand}"/>
+            <MenuItem Header="_Copy" Command="{Binding CopyCommand}"/>
+            <MenuItem Header="_Paste" Command="{Binding PasteCommand}"/>
+        </MenuItem>
+        <MenuItem Header="_Help">
+            <MenuItem Header="_About" Command="{Binding AboutCommand}"/>
+        </MenuItem>
+    </Menu>
+</UserControl>

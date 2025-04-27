@@ -1,0 +1,22 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaApplication1.ViewModels"
+             x:Class="AvaloniaApplication1.Views.ToolBarControl"
+             x:DataType="vm:MainWindowViewModel">
+    <StackPanel Width="70"
+                Background="#F0F0F0"
+                Margin="5">
+        <Button Content="New"
+                Command="{Binding NewCommand}"
+                Margin="5"
+                ToolTip.Tip="Create a new item"/>
+        <Button Content="Open"
+                Command="{Binding OpenCommand}"
+                Margin="5"
+                ToolTip.Tip="Open an existing item"/>
+        <Button Content="Save"
+                Command="{Binding SaveCommand}"
+                Margin="5"
+                ToolTip.Tip="Save the current item"/>
+    </StackPanel>
+</UserControl>
