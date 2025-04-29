@@ -1,0 +1,14 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaApplication1.ViewModels"
+             x:Class="AvaloniaApplication1.Views.ToolBarControl"
+             x:DataType="vm:ToolBarControlModel">
+    <StackPanel Width="70"
+                Background="#F0F0F0"
+                Margin="5">
+        <Button Content="音乐"
+                Command="{Binding MusicCommand}"
+                Margin="5"
+                ToolTip.Tip="音乐"/>
+    </StackPanel>
+</UserControl>

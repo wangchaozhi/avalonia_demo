@@ -1,0 +1,28 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaApplication1.ViewModels"
+             x:Class="AvaloniaApplication1.Views.MainContentControl"
+             x:DataType="vm:MainWindowViewModel">
+    <TabControl ItemsSource="{Binding Tabs}"
+                SelectedIndex="{Binding SelectedTabIndex}">
+        <TabControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:TabViewModel">
+                <DockPanel LastChildFill="True">
+                    <Button Content="X"
+                            Command="{Binding CloseTabCommand}"
+                            Width="20" Height="20" Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Right"/>
+                    <TextBlock Text="{Binding Header}"
+                               VerticalAlignment="Center"
+                               Margin="5,0,5,0"/>
+                </DockPanel>
+            </DataTemplate>
+        </TabControl.ItemTemplate>
+        <TabControl.ContentTemplate>
+            <DataTemplate x:DataType="vm:TabViewModel">
+                <ContentControl Content="{Binding Content}"/>
+            </DataTemplate>
+        </TabControl.ContentTemplate>
+    </TabControl>
+</UserControl>

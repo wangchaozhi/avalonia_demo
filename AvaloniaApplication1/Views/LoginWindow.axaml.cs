@@ -6,7 +6,7 @@ using AvaloniaApplication1.ViewModels;
 
 namespace AvaloniaApplication1.Views;
 
-public partial class LoginWindow : Window
+public partial class LoginWindow : BaseWindow
 {
     public LoginWindow()
     {
@@ -23,6 +23,12 @@ public partial class LoginWindow : Window
             this.BeginMoveDrag(e);
         }
     }
+    
+    private void CloseButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        this.Close();
+    }
+    
     
 
   
