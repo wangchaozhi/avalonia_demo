@@ -7,7 +7,6 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaApplication1.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
         Title="AvaloniaApplication1"
         Width="800" Height="500"
         WindowStartupLocation="CenterScreen">
@@ -16,16 +15,9 @@
     </Design.DataContext>
 
     <DockPanel LastChildFill="True">
-        <!-- Menu Bar (Top) -->
         <views:MenuBarControl DockPanel.Dock="Top"/>
-
-        <!-- Console Output (Bottom) -->
-        <views:ConsoleOutputControl DockPanel.Dock="Bottom"/>
-
-        <!-- Toolbar (Left) -->
-        <views:ToolBarControl DockPanel.Dock="Left" />
-
-        <!-- Main Content Area (Center) -->
+        <views:ConsoleOutputControl DockPanel.Dock="Bottom" DataContext="{Binding}"/>
+        <views:ToolBarControl DockPanel.Dock="Left" DataContext="{Binding ToolBarControlModel}"/>
         <views:MainContentControl/>
     </DockPanel>
 </Window>

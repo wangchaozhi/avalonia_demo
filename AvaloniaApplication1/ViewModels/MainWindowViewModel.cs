@@ -1,83 +1,67 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
 using Serilog;
+using System;
+using System.Collections.ObjectModel;
+using Avalonia.Controls;
+using AvaloniaApplication1.Views;
 
 namespace AvaloniaApplication1.ViewModels
 {
     public partial class MainWindowViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string _greeting = "Welcome to Avalonia123";
+        private string _consoleOutput = "Console initialized.\n";
 
         [ObservableProperty]
-        private string _consoleOutput = "Console initialized.\n";
+        private ObservableCollection<TabViewModel> _tabs = new ObservableCollection<TabViewModel>();
+
+        [ObservableProperty]
+        private int _selectedTabIndex = 0;
+
+        private readonly ToolBarControlModel _toolBarControlModel;
 
         public MainWindowViewModel()
         {
-            AppendConsoleOutput("Application started.");
+            _toolBarControlModel = new ToolBarControlModel(this);
+            AddDefaultTab(); // Initialize with a default tab
         }
 
-        [RelayCommand]
-        private void New()
-        {
-            AppendConsoleOutput("New item created.");
-            // TODO: Implement new item logic
-        }
-
-        [RelayCommand]
-        private void Open()
-        {
-            AppendConsoleOutput("Opening item.");
-            // TODO: Implement open logic
-        }
-
-        [RelayCommand]
-        private void Save()
-        {
-            AppendConsoleOutput("Saving item.");
-            // TODO: Implement save logic
-        }
-
-        [RelayCommand]
-        private void Exit()
-        {
-            AppendConsoleOutput("Exiting application.");
-            // Trigger system tray exit (handled in MainWindow.cs)
-        }
-
-        [RelayCommand]
-        private void Cut()
-        {
-            AppendConsoleOutput("Cut operation.");
-            // TODO: Implement cut logic
-        }
-
-        [RelayCommand]
-        private void Copy()
-        {
-            AppendConsoleOutput("Copy operation.");
-            // TODO: Implement copy logic
-        }
-
-        [RelayCommand]
-        private void Paste()
-        {
-            AppendConsoleOutput("Paste operation.");
-            // TODO: Implement paste logic
-        }
-
-        [RelayCommand]
-        private void About()
-        {
-            AppendConsoleOutput("About dialog opened.");
-            // TODO: Implement about dialog
-        }
+        public ToolBarControlModel ToolBarControlModel => _toolBarControlModel;
 
         internal void AppendConsoleOutput(string message)
         {
             ConsoleOutput += $"[{DateTime.Now:HH:mm:ss}] {message}\n";
             Log.Information("Console: {Message}", message);
+        }
+
+        public void AddMusicTab()
+        {
+            var musicViewModel = new MusicPageViewModel(this);
+            var musicControl = new MusicPageControl { DataContext = musicViewModel };
+            var tab = new TabViewModel(this) // Pass 'this' to constructor
+            {
+                Header = $"Music Tab {Tabs.Count + 1}",
+                Content = musicControl
+            };
+            Tabs.Add(tab);
+            SelectedTabIndex = Tabs.Count - 1;
+            AppendConsoleOutput($"Opened new music tab: {tab.Header}");
+        }
+
+        private void AddDefaultTab()
+        {
+            var defaultControl = new UserControl
+            {
+                Content = new TextBlock { Text = "Welcome to the application!", HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center, VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center }
+            };
+            var tab = new TabViewModel(this) // Pass 'this' to constructor
+            {
+                Header = "Welcome",
+                Content = defaultControl
+            };
+            Tabs.Add(tab);
+            AppendConsoleOutput("Default tab opened.");
         }
     }
 }

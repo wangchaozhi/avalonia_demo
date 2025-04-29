@@ -3,13 +3,26 @@
              xmlns:vm="using:AvaloniaApplication1.ViewModels"
              x:Class="AvaloniaApplication1.Views.MainContentControl"
              x:DataType="vm:MainWindowViewModel">
-    <Border Background="#FFFFFF"
-            Margin="5"
-            BorderBrush="#D0D0D0"
-            BorderThickness="1">
-        <TextBlock Text="{Binding Greeting}"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="20"/>
-    </Border>
+    <TabControl ItemsSource="{Binding Tabs}"
+                SelectedIndex="{Binding SelectedTabIndex}">
+        <TabControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:TabViewModel">
+                <DockPanel LastChildFill="True">
+                    <Button Content="X"
+                            Command="{Binding CloseTabCommand}"
+                            Width="20" Height="20" Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Right"/>
+                    <TextBlock Text="{Binding Header}"
+                               VerticalAlignment="Center"
+                               Margin="5,0,5,0"/>
+                </DockPanel>
+            </DataTemplate>
+        </TabControl.ItemTemplate>
+        <TabControl.ContentTemplate>
+            <DataTemplate x:DataType="vm:TabViewModel">
+                <ContentControl Content="{Binding Content}"/>
+            </DataTemplate>
+        </TabControl.ContentTemplate>
+    </TabControl>
 </UserControl>

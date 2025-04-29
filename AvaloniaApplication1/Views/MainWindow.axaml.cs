@@ -10,7 +10,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 
 namespace AvaloniaApplication1.Views
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : BaseWindow
     {
         private TrayIcon? _trayIcon;
         private NativeMenu _trayMenu = new NativeMenu();

@@ -6,7 +6,7 @@ using AvaloniaApplication1.ViewModels;
 
 namespace AvaloniaApplication1.Views;
 
-public partial class LoginWindow : Window
+public partial class LoginWindow : BaseWindow
 {
     public LoginWindow()
     {

@@ -5,19 +5,19 @@
              x:DataType="vm:MainWindowViewModel">
     <Menu>
         <MenuItem Header="_File">
-            <MenuItem Header="_New" Command="{Binding NewCommand}"/>
-            <MenuItem Header="_Open" Command="{Binding OpenCommand}"/>
-            <MenuItem Header="_Save" Command="{Binding SaveCommand}"/>
+            <MenuItem Header="_New" />
+            <MenuItem Header="_Open" />
+            <MenuItem Header="_Save" />
             <Separator/>
-            <MenuItem Header="_Exit" Command="{Binding ExitCommand}"/>
+            <MenuItem Header="_Exit"/>
         </MenuItem>
         <MenuItem Header="_Edit">
-            <MenuItem Header="_Cut" Command="{Binding CutCommand}"/>
-            <MenuItem Header="_Copy" Command="{Binding CopyCommand}"/>
-            <MenuItem Header="_Paste" Command="{Binding PasteCommand}"/>
+            <MenuItem Header="_Cut"/>
+            <MenuItem Header="_Copy"/>
+            <MenuItem Header="_Paste"/>
         </MenuItem>
         <MenuItem Header="_Help">
-            <MenuItem Header="_About" Command="{Binding AboutCommand}"/>
+            <MenuItem Header="_About" />
         </MenuItem>
     </Menu>
 </UserControl>
