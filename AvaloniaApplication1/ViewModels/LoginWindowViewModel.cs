@@ -17,9 +17,13 @@ namespace AvaloniaApplication1.ViewModels
         private readonly DatabaseManager _databaseManager;
         private string _username = string.Empty;
         private string _password = string.Empty;
+
         private bool _rememberPassword;
+
         // Hardcoded AES key and IV (for demo purposes; use secure key management in production)
-        private static readonly byte[] AesKey = Encoding.UTF8.GetBytes("Your16ByteSecretKey1234567890!@#"); // 32 bytes for AES-256
+        private static readonly byte[]
+            AesKey = Encoding.UTF8.GetBytes("Your16ByteSecretKey1234567890!@#"); // 32 bytes for AES-256
+
         private static readonly byte[] AesIV = Encoding.UTF8.GetBytes("Your16ByteIV1234"); // 16 bytes for AES
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -133,6 +137,7 @@ namespace AvaloniaApplication1.ViewModels
                         byte[] decryptedBytes = Decrypt(encryptedBytes, AesKey, AesIV);
                         Password = Encoding.UTF8.GetString(decryptedBytes);
                     }
+
                     RememberPassword = true;
                 }
             }
@@ -153,6 +158,7 @@ namespace AvaloniaApplication1.ViewModels
                     byte[] encryptedBytes = Encrypt(passwordBytes, AesKey, AesIV);
                     encryptedPassword = Convert.ToBase64String(encryptedBytes);
                 }
+
                 _databaseManager.SaveRememberedCredentials(Username, encryptedPassword);
             }
             catch (Exception ex)
@@ -184,6 +190,7 @@ namespace AvaloniaApplication1.ViewModels
             {
                 cs.Write(data, 0, data.Length);
             }
+
             return ms.ToArray();
         }
 
@@ -198,6 +205,7 @@ namespace AvaloniaApplication1.ViewModels
             {
                 cs.Write(data, 0, data.Length);
             }
+
             return ms.ToArray();
         }
 

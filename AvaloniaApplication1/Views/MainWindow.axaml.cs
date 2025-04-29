@@ -7,8 +7,6 @@ using Serilog;
 using System;
 using System.Runtime.InteropServices;
 using Avalonia.Controls.ApplicationLifetimes;
-using AvaloniaApplication1.ViewModels;
-using CommunityToolkit.Mvvm.Input;
 
 namespace AvaloniaApplication1.Views
 {
@@ -16,7 +14,6 @@ namespace AvaloniaApplication1.Views
     {
         private TrayIcon? _trayIcon;
         private NativeMenu _trayMenu = new NativeMenu();
-    
 
         public MainWindow()
         {
@@ -27,19 +24,17 @@ namespace AvaloniaApplication1.Views
 
         private void CenterWindow()
         {
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen; // Center window
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void SetupSystemTray()
         {
             try
             {
-                // Determine resource URI based on platform
                 string resourceUri = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
-                    ? "avares://AvaloniaApplication1/Assets/avalonia-logo.png" // PNG for macOS/Linux
-                    : "avares://AvaloniaApplication1/Assets/avalonia-logo.ico"; // ICO for Windows
+                    ? "avares://AvaloniaApplication1/Assets/avalonia-logo.png"
+                    : "avares://AvaloniaApplication1/Assets/avalonia-logo.ico";
 
-                // Load resource stream
                 using var stream = AssetLoader.Open(new Uri(resourceUri));
                 _trayIcon = new TrayIcon
                 {
@@ -47,45 +42,35 @@ namespace AvaloniaApplication1.Views
                     ToolTipText = "AvaloniaApplication1"
                 };
 
-                // Create context menu
-                _trayMenu.Add(new NativeMenuItem
-                {
-                    Header = "显示",
-                    Command = new AvaloniaCommand(() => ShowWindow())
-                });
-                _trayMenu.Add(new NativeMenuItem
-                {
-                    Header = "隐藏",
-                    Command = new AvaloniaCommand(() => HideWindow())
-                });
-                _trayMenu.Add(new NativeMenuItem
-                {
-                    Header = "退出",
-                    Command = new AvaloniaCommand(() => ExitApplication())
-                });
+                _trayMenu.Add(new NativeMenuItem { Header = "显示", Command = new AvaloniaCommand(() => ShowWindow()) });
+                _trayMenu.Add(new NativeMenuItem { Header = "隐藏", Command = new AvaloniaCommand(() => HideWindow()) });
+                _trayMenu.Add(new NativeMenuItem { Header = "退出", Command = new AvaloniaCommand(() => ExitApplication()) });
 
                 _trayIcon.Menu = _trayMenu;
-                _trayIcon.Clicked += (s, e) =>
-                {
-                    if (this.IsVisible)
-                        HideWindow();
-                    else
-                        ShowWindow();
-                };
+                _trayIcon.Clicked += TrayIcon_Clicked;
 
-                Log.Information("System tray initialized with resource: {ResourceUri}", resourceUri);
+                Log.Information("System tray initialized on {OS} with resource: {ResourceUri}", RuntimeInformation.OSDescription, resourceUri);
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Failed to initialize system tray");
+                Log.Error(ex, "Failed to initialize system tray on {OS}", RuntimeInformation.OSDescription);
             }
 
-            // Prevent window close from exiting the app
-            this.Closing += (s, e) =>
-            {
-                e.Cancel = true; // Cancel close
+            this.Closing += Window_Closing;
+        }
+
+        private void TrayIcon_Clicked(object? sender, EventArgs e)
+        {
+            if (this.IsVisible)
                 HideWindow();
-            };
+            else
+                ShowWindow();
+        }
+
+        private void Window_Closing(object? sender, WindowClosingEventArgs e)
+        {
+            e.Cancel = true;
+            HideWindow();
         }
 
         private void ShowWindow()
@@ -106,26 +91,56 @@ namespace AvaloniaApplication1.Views
         {
             try
             {
-                // Dispose tray icon and close the application
-                _trayIcon?.Dispose();
-                _trayIcon = null;
-                this.Closing -= (s, e) => e.Cancel = true; // Allow close
+                if (_trayIcon != null)
+                {
+                    _trayIcon.Clicked -= TrayIcon_Clicked;
+                    _trayIcon.Menu = null;
+                    _trayIcon.Dispose();
+                    _trayIcon = null;
+                }
+
+                this.Closing -= Window_Closing;
                 this.Close();
-                (Application.Current?.TryGetFeature(typeof(IClassicDesktopStyleApplicationLifetime)) as IClassicDesktopStyleApplicationLifetime)?.Shutdown();
+
+                if (Application.Current?.TryGetFeature(typeof(IClassicDesktopStyleApplicationLifetime)) is IClassicDesktopStyleApplicationLifetime lifetime)
+                {
+                    lifetime.Shutdown();
+                }
+
                 Log.Information("Application exited via system tray");
+                Log.CloseAndFlush();
             }
             catch (Exception ex)
             {
                 Log.Error(ex, "Error exiting application");
+                Log.CloseAndFlush();
             }
         }
 
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            // Ensure tray icon is disposed if window is closed unexpectedly
-            _trayIcon?.Dispose();
-            _trayIcon = null;
+            try
+            {
+                if (_trayIcon != null)
+                {
+                    _trayIcon.Clicked -= TrayIcon_Clicked;
+                    _trayIcon.Menu = null;
+                    _trayIcon.Dispose();
+                    _trayIcon = null;
+                }
+
+                Log.CloseAndFlush();
+
+                if (Application.Current?.TryGetFeature(typeof(IClassicDesktopStyleApplicationLifetime)) is IClassicDesktopStyleApplicationLifetime lifetime)
+                {
+                    lifetime.Shutdown();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error during window close");
+            }
         }
 
         private class AvaloniaCommand : System.Windows.Input.ICommand
@@ -137,7 +152,7 @@ namespace AvaloniaApplication1.Views
                 _execute = execute;
             }
 
-            public event EventHandler? CanExecuteChanged; // Required by ICommand
+            public event EventHandler? CanExecuteChanged;
 
             public bool CanExecute(object? parameter) => true;
 
