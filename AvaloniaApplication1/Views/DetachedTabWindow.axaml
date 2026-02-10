@@ -1,0 +1,57 @@
+<!--
+ Author: wangchaozhi
+ Date: 2026/02/10
+-->
+<views:BorderlessDraggableWindow xmlns="https://github.com/avaloniaui"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:views="using:AvaloniaApplication1.Views"
+                  xmlns:vm="using:AvaloniaApplication1.ViewModels"
+                  mc:Ignorable="d"
+                  x:Class="AvaloniaApplication1.Views.DetachedTabWindow"
+                  x:DataType="vm:TabViewModel"
+                  Width="900"
+                  Height="600"
+                  CanResize="True"
+                  Background="#FFFFFF"
+                  ShowSystemCloseButton="False">
+  <DockPanel LastChildFill="True">
+    <!-- 自绘标题栏：左侧为拖拽/拖回主窗口区域，右侧为关闭（回到标签页） -->
+    <Grid DockPanel.Dock="Top"
+          Height="36"
+          Background="#1F1F1F">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+
+      <!-- 仅这一块区域参与拖拽，避免点击关闭按钮误触发拖拽 -->
+      <Border Grid.Column="0"
+              Background="Transparent"
+              PointerPressed="OnHeaderPointerPressed"
+              PointerMoved="OnHeaderPointerMoved">
+        <TextBlock Text="{Binding Header}"
+                   Foreground="#FFFFFF"
+                   VerticalAlignment="Center"
+                   Margin="12,0,0,0"/>
+      </Border>
+
+      <Button Grid.Column="1"
+              Width="32"
+              Height="32"
+              Margin="0,2,6,2"
+              Background="Transparent"
+              Foreground="Red"
+              FontWeight="Bold"
+              Cursor="Hand"
+              Content="X"
+              Command="{Binding CloseWindowCommand, RelativeSource={RelativeSource AncestorType=views:BorderlessDraggableWindow}}"/>
+    </Grid>
+
+    <!-- 内容区保持浅色背景，避免页面默认透明导致“整块发黑/文字看不见” -->
+    <Border Background="#FFFFFF">
+      <ContentControl x:Name="ContentHost"/>
+    </Border>
+  </DockPanel>
+</views:BorderlessDraggableWindow>

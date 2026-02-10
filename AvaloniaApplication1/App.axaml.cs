@@ -1,11 +1,18 @@
+/*
+ Author: wangchaozhi
+ Date: 2026/02/10
+*/
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using AvaloniaApplication1.ViewModels;
 using AvaloniaApplication1.Views;
+using AvaloniaApplication1.Service;
 
 namespace AvaloniaApplication1;
 
@@ -31,6 +38,27 @@ public partial class App : Application
             // {
             //     DataContext = new LoginWindowViewModel(this),
             // };
+
+            // Listen for "activate existing instance" requests.
+            // This is invoked when user launches the app again.
+            var instanceKey = SingleInstanceManager.InstanceKey;
+            if (!string.IsNullOrWhiteSpace(instanceKey))
+            {
+                SingleInstanceManager.StartListening(instanceKey, () =>
+                {
+                    Dispatcher.UIThread.Post(() =>
+                    {
+                        var target =
+                            desktop.Windows?.FirstOrDefault(w => w.IsActive) ??
+                            desktop.Windows?.FirstOrDefault(w => w.IsVisible) ??
+                            desktop.MainWindow;
+
+                        WindowActivationService.Activate(target);
+                    });
+                });
+
+                desktop.Exit += (_, _) => SingleInstanceManager.Shutdown();
+            }
         }
 
         base.OnFrameworkInitializationCompleted();

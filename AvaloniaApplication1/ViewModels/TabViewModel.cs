@@ -1,5 +1,10 @@
+/*
+ Author: wangchaozhi
+ Date: 2026/02/10
+*/
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Avalonia.Controls;
 
 namespace AvaloniaApplication1.ViewModels
 {
@@ -7,23 +12,28 @@ namespace AvaloniaApplication1.ViewModels
     {
         private readonly MainWindowViewModel _mainViewModel;
 
+        public string Key { get; }
+
         [ObservableProperty]
         private string _header = string.Empty;
 
         [ObservableProperty]
         private object? _content;
 
-        public TabViewModel(MainWindowViewModel mainViewModel)
+        [ObservableProperty]
+        private Window? _detachedWindow;
+
+        public TabViewModel(MainWindowViewModel mainViewModel, string key)
         {
             _mainViewModel = mainViewModel;
+            Key = key;
         }
         
 
         [RelayCommand]
         private void CloseTab()
         {
-            _mainViewModel?.Tabs.Remove(this);
-            _mainViewModel?.AppendConsoleOutput($"Closed tab: {Header}");
+            _mainViewModel.CloseTab(this);
         }
     }
 }

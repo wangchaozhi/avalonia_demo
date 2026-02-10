@@ -1,13 +1,19 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:AvaloniaApplication1.ViewModels"
              x:Class="AvaloniaApplication1.Views.MainContentControl"
              x:DataType="vm:MainWindowViewModel">
-    <TabControl ItemsSource="{Binding Tabs}"
-                SelectedIndex="{Binding SelectedTabIndex}">
+    <TabControl x:Name="TabsHost"
+                ItemsSource="{Binding Tabs}"
+                SelectedIndex="{Binding SelectedTabIndex}"
+                DragDrop.AllowDrop="True"
+                DragDrop.DragOver="OnTabsDragOver"
+                DragDrop.Drop="OnTabsDrop">
         <TabControl.ItemTemplate>
             <DataTemplate x:DataType="vm:TabViewModel">
-                <DockPanel LastChildFill="True">
+                <DockPanel LastChildFill="True"
+                           PointerPressed="OnTabHeaderPointerPressed"
+                           PointerMoved="OnTabHeaderPointerMoved">
                     <Button Content="X"
                             Command="{Binding CloseTabCommand}"
                             Width="20" Height="20" Margin="5,0,0,0"

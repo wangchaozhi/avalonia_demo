@@ -1,43 +1,25 @@
-﻿<Window xmlns="https://github.com/avaloniaui"
+<views:BorderlessDraggableWindow xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="using:AvaloniaApplication1.Views"
         xmlns:viewModels="clr-namespace:AvaloniaApplication1.ViewModels"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaApplication1.Views.LoginWindow"
         Title="Login"
-      
-        ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="NoChrome"
-        ExtendClientAreaTitleBarHeightHint="-1"
-        SystemDecorations="None"
-        PointerPressed="InputElement_OnPointerPressed"
+
         x:DataType="viewModels:LoginWindowViewModel"
         Width="400" Height="350">
     <Grid>
         <!-- Background image -->
-        <Image Source="avares://AvaloniaApplication1/Assets/dragonlearn.webp"
-               Stretch="Fill" 
-               ZIndex="0"/>
+        <!-- <Image Source="avares://AvaloniaApplication1/Assets/dragonlearn.webp" -->
+        <!--        Stretch="Fill" -->
+        <!--        ZIndex="0"/> -->
 
         <!-- Semi-transparent overlay for readability -->
         <Border Background="#FFFFFF"
                 Opacity="0.2"
                 ZIndex="1"/>
-
-        <!-- Close button in top-right corner -->
-        <Button Content="X"
-                Width="30"
-                Height="30"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Margin="0,5,5,0"
-                Background="Transparent"
-                Foreground="Red"
-                FontWeight="Bold"
-                Click="CloseButton_Click"
-                Cursor="Hand"
-                ZIndex="2"/>
 
         <!-- Main login form -->
         <StackPanel Margin="40" 
@@ -83,4 +65,4 @@
             </Button>
         </StackPanel>
     </Grid>
-</Window>
+</views:BorderlessDraggableWindow>
