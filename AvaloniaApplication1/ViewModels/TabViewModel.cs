@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace AvaloniaApplication1.ViewModels
@@ -8,10 +8,10 @@ namespace AvaloniaApplication1.ViewModels
         private readonly MainWindowViewModel _mainViewModel;
 
         [ObservableProperty]
-        private string _header;
+        private string _header = string.Empty;
 
         [ObservableProperty]
-        private object _content;
+        private object? _content;
 
         public TabViewModel(MainWindowViewModel mainViewModel)
         {

@@ -1,8 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
+        <NoWarn>$(NoWarn);1668;CS1668</NoWarn>
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
@@ -14,23 +15,22 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.2.6"/>
-        <PackageReference Include="Avalonia.Desktop" Version="11.2.6"/>
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.6"/>
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.6"/>
+        <PackageReference Include="Avalonia" Version="11.3.11"/>
+        <PackageReference Include="Avalonia.Desktop" Version="11.3.11"/>
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.11"/>
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.11"/>
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Include="Avalonia.Diagnostics" Version="11.2.6">
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.3.11">
             <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
         <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1"/>
-        <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="9.0.4" />
-        <PackageReference Include="Serilog" Version="4.2.0" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
-        <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
+        <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="10.0.2" />
+        <PackageReference Include="Serilog" Version="4.3.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
+        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
         <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.11" />
-        <PackageReference Include="System.Text.Json" Version="9.0.4" />
     </ItemGroup>
 
     <ItemGroup>

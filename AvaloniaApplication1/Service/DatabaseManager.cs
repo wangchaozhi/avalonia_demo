@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Microsoft.Data.Sqlite;
 using Serilog;
@@ -9,7 +9,7 @@ namespace AvaloniaApplication1.Service
     {
         private readonly string _dbPath;
 
-        public DatabaseManager(string dbPath = null)
+        public DatabaseManager(string? dbPath = null)
         {
             // Use a cross-platform path in the Data directory
             string dbFilePath = dbPath ?? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "users.db");
@@ -72,7 +72,7 @@ namespace AvaloniaApplication1.Service
             }
         }
 
-        public void SaveRememberedCredentials(string username, string encryptedPassword)
+        public void SaveRememberedCredentials(string username, string? encryptedPassword)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace AvaloniaApplication1.Service
             }
         }
 
-        public (string Username, string EncryptedPassword)? LoadRememberedCredentials()
+        public (string Username, string? EncryptedPassword)? LoadRememberedCredentials()
         {
             try
             {
@@ -110,8 +110,8 @@ namespace AvaloniaApplication1.Service
             SELECT Value FROM Settings WHERE Key = 'RememberedPassword'";
                 using var reader = command.ExecuteReader();
 
-                string username = null;
-                string encryptedPassword = null;
+                string? username = null;
+                string? encryptedPassword = null;
                 int index = 0;
                 while (reader.Read())
                 {
@@ -166,7 +166,7 @@ namespace AvaloniaApplication1.Service
                 command.CommandText = "SELECT Password FROM Users WHERE Username = $username";
                 command.Parameters.AddWithValue("$username", username);
 
-                string storedHash = command.ExecuteScalar() as string;
+                string? storedHash = command.ExecuteScalar() as string;
                 bool isValid = storedHash != null && BCrypt.Net.BCrypt.Verify(password, storedHash);
                 Log.Information("Authentication result for {Username}: {Result}", username, isValid);
                 return isValid;

@@ -1,13 +1,18 @@
-﻿using Avalonia.Controls;
+using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
 namespace AvaloniaApplication1.Views
 {
     public partial class ErrorWindow : Window
     {
-        public ErrorWindow(string message)
+        public ErrorWindow()
         {
             InitializeComponent();
+        }
+
+        public ErrorWindow(string message)
+            : this()
+        {
             this.FindControl<TextBlock>("ErrorMessage")!.Text = message; // 设置错误信息
             // this.WindowStartupLocation = WindowStartupLocation.CenterScreen; // 自动居中
         }

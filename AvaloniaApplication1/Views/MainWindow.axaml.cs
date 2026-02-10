@@ -152,7 +152,11 @@ namespace AvaloniaApplication1.Views
                 _execute = execute;
             }
 
-            public event EventHandler? CanExecuteChanged;
+            event EventHandler? System.Windows.Input.ICommand.CanExecuteChanged
+            {
+                add { }
+                remove { }
+            }
 
             public bool CanExecute(object? parameter) => true;
 

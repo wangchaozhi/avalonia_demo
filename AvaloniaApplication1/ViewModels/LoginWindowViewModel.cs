@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Windows.Input;
 using System;
 using System.IO;
@@ -27,7 +27,6 @@ namespace AvaloniaApplication1.ViewModels
         private static readonly byte[] AesIV = Encoding.UTF8.GetBytes("Your16ByteIV1234"); // 16 bytes for AES
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public event Action? LoginSuccess;
 
         public string Username
         {
@@ -151,7 +150,7 @@ namespace AvaloniaApplication1.ViewModels
         {
             try
             {
-                string encryptedPassword = null;
+                string? encryptedPassword = null;
                 if (!string.IsNullOrEmpty(Password))
                 {
                     byte[] passwordBytes = Encoding.UTF8.GetBytes(Password);
